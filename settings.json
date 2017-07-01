@@ -6,7 +6,8 @@
     "pull_request": "parse-community/parse-community-peril@dangerfiles/pr.js"
   },
   "repos": {
-    "parse-community/parse-community-peril": {}
+    "parse-community/parse-community-peril": {},
+    "parse-community/parse-server": {}
   }
 }
 
