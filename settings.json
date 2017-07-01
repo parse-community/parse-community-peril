@@ -4,7 +4,7 @@
   },
   "rules": {
     "pull_request": "parse-community/parse-community-peril@dangerfiles/pr.js",
-    "issue": "parse-community/parse-community-peril@dangerfiles/issue.js"
+    "issues.*": "parse-community/parse-community-peril@dangerfiles/issue.js"
   },
   "repos": {
     "parse-community/parse-community-peril": {}
