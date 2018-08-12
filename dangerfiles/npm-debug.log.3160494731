@@ -1,0 +1,22 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/florent/.nvm/versions/node/v7.4.0/bin/node',
+1 verbose cli   '/Users/florent/.nvm/versions/node/v7.4.0/bin/npm',
+1 verbose cli   'init',
+1 verbose cli   '--scope=parseplatform' ]
+2 info using npm@4.0.5
+3 info using node@v7.4.0
+4 verbose stack Error: write EIO
+4 verbose stack     at exports._errnoException (util.js:1022:11)
+4 verbose stack     at WriteWrap.afterWrite [as oncomplete] (net.js:804:14)
+5 verbose cwd /Users/florent/src/Parse/parse-community-peril/dangerfiles
+6 error Darwin 16.7.0
+7 error argv "/Users/florent/.nvm/versions/node/v7.4.0/bin/node" "/Users/florent/.nvm/versions/node/v7.4.0/bin/npm" "init" "--scope=parseplatform"
+8 error node v7.4.0
+9 error npm  v4.0.5
+10 error code EIO
+11 error errno EIO
+12 error syscall write
+13 error write EIO
+14 error If you need help, you may report this error at:
+14 error     <https://github.com/npm/npm/issues>
+15 verbose exit [ 1, true ]

@@ -3,11 +3,12 @@
     "onlyForOrgMembers": false
   },
   "rules": {
-    "pull_request": "parse-community/parse-community-peril@dangerfiles/pr.js",
+    "pull_request": ["parse-community/parse-community-peril@dangerfiles/changelog.ts", "danger/peril-settings@org/debug.ts"],
     "issues.*": "parse-community/parse-community-peril@dangerfiles/issue.js"
   },
   "repos": {
-    "parse-community/parse-community-peril": {}
+    "parse-community/parse-community-peril": {},
+    "parse-community/parse-server": {}
   }
 }
 
