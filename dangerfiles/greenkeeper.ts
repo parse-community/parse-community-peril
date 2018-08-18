@@ -55,9 +55,10 @@ export default async () => {
   const reviews = await api.pullRequests.getReviews({owner, repo, number })
   console.log(reviews.data);
   console.log(`found ${reviews.data.length} reviews`)
-  if (reviews.data.length === 0) {
+  const validReviews = reviews.data.find((r) => r.state !== "DISMISSED");
+  if (validReviews.length === 0) {
     const review = await api.pullRequests.createReview({owner, repo, number, event: 'APPROVE' })
-    console.log("Approved the PR as merged on green")
+    console.log("Approved the PR as merged on green", review.data.id)
   }
 }
   
