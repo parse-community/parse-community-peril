@@ -41,11 +41,8 @@ export default async () => {
   }
   const number = danger.github.thisPR.number;
   const labels = await api.issues.getIssueLabels({ owner, repo, number })
-  console.log(`found labels`, labels.data);
   const existLabel = labels.data.find((l: Label) => l.name == "Merge On Green");
   if (!existLabel) {
-    console.log('Label exists...');
-  } else {
     // Then add the label
     await api.issues.addLabels({ owner, repo, number, labels: ["Merge On Green"] })
     console.log("Updated the PR with a Merge on Green label")
@@ -54,7 +51,7 @@ export default async () => {
   const reviews = await api.pullRequests.getReviews({owner, repo, number })
   console.log(`found ${reviews.data.length} reviews`)
   if (reviews.data.length === 0) {
-    await api.pullRequests.createReview({owner, repo, number, event: 'APPROVE' })
+    const review = await api.pullRequests.createReview({owner, repo, number, event: 'APPROVE' })
     console.log("Approved the PR as merged on green")
   }
 }
