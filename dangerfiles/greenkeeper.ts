@@ -63,7 +63,7 @@ export default async () => {
   });
 
   console.log(`found ${validReview} validReviews`)
-  if (validReview === 0) {
+  if (!validReview) {
     const review = await api.pullRequests.createReview({owner, repo, number, event: 'APPROVE' })
     console.log("Approved the PR as merged on green", review.data.id)
   }
