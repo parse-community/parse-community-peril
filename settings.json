@@ -5,7 +5,7 @@
   "rules": {
     "pull_request.*": ["parse-community/parse-community-peril@dangerfiles/greenkeeper.ts", "parse-community/parse-community-peril@dangerfiles/changelog.ts"],
     "issues.*": "parse-community/parse-community-peril@dangerfiles/issue.js",
-    "status.success": "danger/peril-settings@org/mergeOnGreen.ts"
+    "status.success": "parse-community/parse-community-peril@dangerfiles/mergeOnGreen.ts"
   },
   "repos": {
     "parse-community/parse-community-peril": {},
