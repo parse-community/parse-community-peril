@@ -10,7 +10,6 @@ interface Label {
   default: boolean
 }
 
-/** If a comment to an issue contains "Merge on Green", apply a label for it to be merged when green. */
 export default async () => {
   const api = danger.github.api
   const pr = danger.github.pr
@@ -20,6 +19,11 @@ export default async () => {
     if (user.login === 'greenkeeper[bot]') {
       warn('Greenkeeper bot changed its ID');
     }
+    return;
+  }
+  
+  if (pr.state !== 'open') {
+    console.log('not doing anything... pr is not opened');
     return;
   }
 
@@ -49,6 +53,7 @@ export default async () => {
   }
 
   const reviews = await api.pullRequests.getReviews({owner, repo, number })
+  console.log(reviews.data);
   console.log(`found ${reviews.data.length} reviews`)
   if (reviews.data.length === 0) {
     const review = await api.pullRequests.createReview({owner, repo, number, event: 'APPROVE' })
