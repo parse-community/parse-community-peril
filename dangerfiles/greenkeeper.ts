@@ -13,8 +13,9 @@ interface Label {
 export default async () => {
   const api = danger.github.api
   const pr = danger.github.pr
+  const commits = danger.github.commits;
   const { user } = pr;
-  console.log(danger.github.commits);
+  console.log('LAST-SHA', commits[commits.length-1].sha);
 
   if (user.id !== 23040076 || user.type !== 'Bot') {
     if (user.login === 'greenkeeper[bot]') {
@@ -56,7 +57,6 @@ export default async () => {
   const reviews = await api.pullRequests.getReviews({owner, repo, number })
   console.log(reviews.data);
   console.log(`found ${reviews.data.length} reviews`)
-  console.log(pr.head);
   
   const validReviews = reviews.data.find((r) => r.state !== "DISMISSED");
   if (validReviews.length === 0) {
