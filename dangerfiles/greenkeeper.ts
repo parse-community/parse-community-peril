@@ -55,6 +55,8 @@ export default async () => {
   const reviews = await api.pullRequests.getReviews({owner, repo, number })
   console.log(reviews.data);
   console.log(`found ${reviews.data.length} reviews`)
+  console.log(pr.head);
+  
   const validReviews = reviews.data.find((r) => r.state !== "DISMISSED");
   if (validReviews.length === 0) {
     const review = await api.pullRequests.createReview({owner, repo, number, event: 'APPROVE' })
