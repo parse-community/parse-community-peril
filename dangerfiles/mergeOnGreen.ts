@@ -35,7 +35,7 @@ export default async (status: Status) => {
     }
 
     // Merge the PR
-    await api.pullRequests.merge({ owner, repo, number, commit_title: "Merged by Peril", merge_method: 'squash' })
+    await api.pullRequests.merge({ owner, repo, number, merge_method: 'squash' })
     console.log(`Merged Pull Request ${number}`)
   }
 }
