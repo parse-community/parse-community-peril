@@ -14,6 +14,7 @@ export default async () => {
   const api = danger.github.api
   const pr = danger.github.pr
   const { user } = pr;
+  console.log(danger.github.commits);
 
   if (user.id !== 23040076 || user.type !== 'Bot') {
     if (user.login === 'greenkeeper[bot]') {
