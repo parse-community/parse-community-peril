@@ -3,8 +3,9 @@
     "onlyForOrgMembers": false
   },
   "rules": {
-    "pull_request": ["parse-community/parse-community-peril@dangerfiles/changelog.ts", "danger/peril-settings@org/debug.ts"],
-    "issues.*": "parse-community/parse-community-peril@dangerfiles/issue.js"
+    "pull_request": ["parse-community/parse-community-peril@dangerfiles/changelog.ts", "danger/peril-settings@org/debug.ts", "parse-community/parse-community-peril@dangerfiles/greenkeeper.ts"],
+    "issues.*": "parse-community/parse-community-peril@dangerfiles/issue.js",
+    "status.success": "danger/peril-settings@org/mergeOnGreen.ts"
   },
   "repos": {
     "parse-community/parse-community-peril": {},
