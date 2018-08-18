@@ -57,12 +57,13 @@ export default async () => {
   const lastCommitSHA = commits[commits.length-1].sha;
   console.log(`found ${reviews.data.length} reviews`)
   
-  const validReviews = reviews.data.find((r) => {
-    console.log('Is good', r.state, r.commit_id);
+  const validReview = reviews.data.find((r) => {
+    console.log('Is good', r.state, r.commit_id, lastCommitSHA);
     return r.state !== "DISMISSED" && r.commit_id === lastCommitSHA;
   });
-  console.log(`found ${validReviews.length} validReviews`)
-  if (validReviews.length === 0) {
+
+  console.log(`found ${validReview} validReviews`)
+  if (validReview === 0) {
     const review = await api.pullRequests.createReview({owner, repo, number, event: 'APPROVE' })
     console.log("Approved the PR as merged on green", review.data.id)
   }
