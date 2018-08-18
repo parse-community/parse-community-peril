@@ -15,7 +15,6 @@ export default async () => {
   const pr = danger.github.pr
   const commits = danger.github.commits;
   const { user } = pr;
-  console.log('LAST-SHA', commits[commits.length-1].sha);
 
   if (user.id !== 23040076 || user.type !== 'Bot') {
     if (user.login === 'greenkeeper[bot]') {
@@ -55,10 +54,14 @@ export default async () => {
   }
 
   const reviews = await api.pullRequests.getReviews({owner, repo, number })
-  console.log(reviews.data);
+  const lastCommitSHA = commits[commits.length-1].sha;
   console.log(`found ${reviews.data.length} reviews`)
   
-  const validReviews = reviews.data.find((r) => r.state !== "DISMISSED");
+  const validReviews = reviews.data.find((r) => {
+    console.log('Is good', r.state, r.commit_id);
+    return r.state !== "DISMISSED" && r.commit_id === lastCommitSHA;
+  });
+  console.log(`found ${validReviews.length} validReviews`)
   if (validReviews.length === 0) {
     const review = await api.pullRequests.createReview({owner, repo, number, event: 'APPROVE' })
     console.log("Approved the PR as merged on green", review.data.id)
