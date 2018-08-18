@@ -1,5 +1,4 @@
-import { danger } from "danger"
-import { IssueComment } from "github-webhook-event-types"
+import { danger, warn } from "danger"
 
 // The shape of a label
 interface Label {
@@ -12,44 +11,24 @@ interface Label {
 }
 
 /** If a comment to an issue contains "Merge on Green", apply a label for it to be merged when green. */
-export default async (issueComment: IssueComment) => {
-  console.log('RUN', issueComment, typeof issueComment);
-  const issue = issueComment.issue
-  const comment = issueComment.comment
+export default async () => {
   const api = danger.github.api
+  const pr = danger.github.pr
+  const { user } = pr;
 
-  // Only look at PR issue comments, this isn't in the type system
-  if (!(issue as any).pull_request) {
-    console.error("Not a Pull Request")
-    return
-  }
-
-  // Don't do any work unless we have to
-  const keywords = ["merge on green", "merge on ci green"]
-  const match = keywords.find(k => comment.body.toLowerCase().includes(k))
-  const sender = comment.user
-  const username = sender.login
-  const org = issueComment.repository.owner.login
-
-  danger.warn(`Running with ${username}`);
-  if (username.indexOf('greenkeeper') < 0) {
-    return console.log('bailing, not greenkeeper');
-  }
-  // Check for org access, so that some rando doesn't
-  // try to merge something without permission
-  try {
-    await api.orgs.checkMembership({ org, username })
-  } catch (error) {
-    // Someone does not have permission to force a merge
-    return console.error("Sender does not have permission to merge")
+  if (user.id !== 23040076 || user.type !== 'Bot') {
+    if (user.login === 'greenkeeper[bot]') {
+      warn('Greenkeeper bot changed its ID');
+    }
+    return;
   }
 
   // Create or re-use an existing label
+  const org = danger.github.thisPR.owner;
   const owner = org
-  const repo = issueComment.repository.name
+  const { repo } = danger.github.thisPR;
   const existingLabels = await api.issues.getLabels({ owner, repo })
   const mergeOnGreen = existingLabels.data.find((l: Label) => l.name == "Merge On Green")
-
   // Create the label if it doesn't exist yet
   if (!mergeOnGreen) {
     const newLabel = await api.issues.createLabel({
@@ -60,8 +39,23 @@ export default async (issueComment: IssueComment) => {
       description: "A label to indicate that Peril should merge this PR when all statuses are green",
     } as any)
   }
+  const number = danger.github.thisPR.number;
+  const labels = await api.issues.getIssueLabels({ owner, repo, number })
+  console.log(`found labels`, labels.data);
+  const existLabel = labels.data.find((l: Label) => l.name == "Merge On Green");
+  if (!existLabel) {
+    console.log('Label exists...');
+  } else {
+    // Then add the label
+    await api.issues.addLabels({ owner, repo, number, labels: ["Merge On Green"] })
+    console.log("Updated the PR with a Merge on Green label")
+  }
 
-  // Then add the label
-  await api.issues.addLabels({ owner, repo, number: issue.number, labels: ["Merge On Green"] })
-  console.log("Updated the PR with a Merge on Green label")
+  const reviews = await api.pullRequests.getReviews({owner, repo, number })
+  console.log(`found ${reviews.data.length} reviews`)
+  if (reviews.data.length === 0) {
+    await api.pullRequests.createReview({owner, repo, number, event: 'APPROVE' })
+    console.log("Approved the PR as merged on green")
+  }
 }
+  
