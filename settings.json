@@ -3,7 +3,7 @@
     "onlyForOrgMembers": false
   },
   "rules": {
-    "pull_request": ["parse-community/parse-community-peril@dangerfiles/changelog.ts", "parse-community/parse-community-peril@dangerfiles/greenkeeper.ts"],
+    "pull_request": ["parse-community/parse-community-peril@dangerfiles/greenkeeper.ts"],
     "issues.*": "parse-community/parse-community-peril@dangerfiles/issue.js",
     "status.success": "danger/peril-settings@org/mergeOnGreen.ts"
   },
