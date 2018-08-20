@@ -9,6 +9,8 @@
   },
   "repos": {
     "parse-community/parse-community-peril": {},
+    "parse-community/parse-dashboard": {},
+    "parse-community/Parse-SDK-JS": {},
     "parse-community/parse-server": {}
   }
 }
