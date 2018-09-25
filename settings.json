@@ -8,10 +8,17 @@
     "status.success": "parse-community/parse-community-peril@dangerfiles/mergeOnGreen.ts"
   },
   "repos": {
+    "parse-community/parse-server": {},
     "parse-community/parse-community-peril": {},
     "parse-community/parse-dashboard": {},
     "parse-community/Parse-SDK-JS": {},
-    "parse-community/parse-server": {}
+    "parse-community/parse-server-gcs-adapter": {},
+    "parse-community/parse-server-fs-adapter": {},
+    "parse-community/parse-server-s3-adapter": {},
+    "parse-community/parse-server-push-adapter": {},
+    "parse-community/parse-server-sqs-mq": {},
+    "parse-community/node-gcm": {},
+    "parse-community/node-apn": {}
   }
 }
 
