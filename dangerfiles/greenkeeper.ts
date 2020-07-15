@@ -16,7 +16,7 @@ export default async () => {
   const commits = danger.github.commits;
   const { user } = pr;
 
-  if (user.id !== 19733683 || user.type !== 'Bot') {
+  if (user.id !== 19733683 || user.type !== 'User') {
     if (user.login === 'snyk-bot') {
       warn('Snyk bot changed its ID');
     }
