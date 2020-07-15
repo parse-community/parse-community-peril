@@ -16,9 +16,9 @@ export default async () => {
   const commits = danger.github.commits;
   const { user } = pr;
 
-  if (user.id !== 23040076 || user.type !== 'Bot') {
-    if (user.login === 'greenkeeper[bot]') {
-      warn('Greenkeeper bot changed its ID');
+  if (user.id !== 19733683 || user.type !== 'Bot') {
+    if (user.login === 'snyk-bot') {
+      warn('Snyk bot changed its ID');
     }
     return;
   }
