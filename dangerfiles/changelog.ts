@@ -8,7 +8,7 @@ export default async () => {
   const changelogNames = ["CHANGELOG.md", "changelog.md", "CHANGELOG.yml"]
   const isOpen = danger.github.pr.state === "open"
 
-  const getContentParams = { owner: pr.base.user.login, repo: pr.base.repo.name, sha: "master" }
+  const getContentParams = { owner: pr.base.user.login, repo: pr.base.repo.name, tree_sha: "master" }
   const rootContents: any = await danger.github.api.gitdata.getTree(getContentParams)
 
   const pathForChangelog = rootContents.data.tree.find((file: { path: string }) => changelogNames.includes(file.path))
