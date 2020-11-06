@@ -23,9 +23,9 @@ export default async () => {
     // Request a CHANGELOG entry if not declared #trivial
     const isTrivial = (danger.github.pr.body + danger.github.pr.title).includes("#trivial")
     const isUser = danger.github.pr.user.type === "User"
-    const isGreenkeeper = danger.github.pr.user.id === 23040076
+    const isSnyk = danger.github.pr.user.id === 19733683
     // Politely ask for their name on the entry too
-    if (hasCodeChanges && !hasChangelogChanges && !isTrivial && !isGreenkeeper) {
+    if (hasCodeChanges && !hasChangelogChanges && !isTrivial && !isSnyk) {
       // const changelogDiff = await danger.git.diffForFile(pathForChangelog)
       // const contributorName = danger.github.pr.user.login
       // const hasUsernameInChanges = changelogDiff && changelogDiff.diff.includes(contributorName)
