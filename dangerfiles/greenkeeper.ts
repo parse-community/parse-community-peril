@@ -32,7 +32,7 @@ export default async () => {
   const org = danger.github.thisPR.owner;
   const owner = org
   const { repo } = danger.github.thisPR;
-  const existingLabels = await api.issues.getLabels({ owner, repo })
+  const existingLabels = await api.issues.listLablesForRepo({ owner, repo })
   const mergeOnGreen = existingLabels.data.find((l: Label) => l.name == "Merge On Green")
   // Create the label if it doesn't exist yet
   if (!mergeOnGreen) {
